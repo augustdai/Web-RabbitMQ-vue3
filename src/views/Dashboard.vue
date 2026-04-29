@@ -13,34 +13,15 @@
     <div class="dashboard-grid">
 
       <!-- 4 个统计卡片，各占 3 列 -->
-      <div class="stat-card card-stat-1" :style="{ '--card-color': statCards[0]?.color }">
-        <div class="stat-icon-wrap"><el-icon :size="22"><component :is="statCards[0]?.icon" /></el-icon></div>
-        <div class="stat-body">
-          <div class="stat-value">{{ statCards[0]?.value }}</div>
-          <div class="stat-label">{{ statCards[0]?.label }}</div>
+      <template v-for="(statCard, index) in statCards" :keys="index">
+        <div class="stat-card" :class="`card-stat-${index+1}`" :style="{ '--card-color': statCard?.color }">
+          <div class="stat-icon-wrap"><el-icon :size="22"><component :is="statCard?.icon" /></el-icon></div>
+          <div class="stat-body">
+            <div class="stat-value">{{ statCard?.value }}</div>
+            <div class="stat-label">{{ statCard?.label }}</div>
+          </div>
         </div>
-      </div>
-      <div class="stat-card card-stat-2" :style="{ '--card-color': statCards[1]?.color }">
-        <div class="stat-icon-wrap"><el-icon :size="22"><component :is="statCards[1]?.icon" /></el-icon></div>
-        <div class="stat-body">
-          <div class="stat-value">{{ statCards[1]?.value }}</div>
-          <div class="stat-label">{{ statCards[1]?.label }}</div>
-        </div>
-      </div>
-      <div class="stat-card card-stat-3" :style="{ '--card-color': statCards[2]?.color }">
-        <div class="stat-icon-wrap"><el-icon :size="22"><component :is="statCards[2]?.icon" /></el-icon></div>
-        <div class="stat-body">
-          <div class="stat-value">{{ statCards[2]?.value }}</div>
-          <div class="stat-label">{{ statCards[2]?.label }}</div>
-        </div>
-      </div>
-      <div class="stat-card card-stat-4" :style="{ '--card-color': statCards[3]?.color }">
-        <div class="stat-icon-wrap"><el-icon :size="22"><component :is="statCards[3]?.icon" /></el-icon></div>
-        <div class="stat-body">
-          <div class="stat-value">{{ statCards[3]?.value }}</div>
-          <div class="stat-label">{{ statCards[3]?.label }}</div>
-        </div>
-      </div>
+      </template>
 
       <!-- 节点信息：col 1-5，row 2-4 -->
       <el-card header="节点信息" class="card-node">
@@ -335,14 +316,16 @@ onUnmounted(() => {
 
 /* stat-card 样式 */
 .stat-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px;
   display: flex;
   align-items: center;
   gap: 16px;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
   border-left: 3px solid var(--card-color, var(--accent));
+  box-shadow: 0 0 3px 3px rgb(0 0 0 / 0.3);
+  background: color-mix(in srgb, var(--card-color, var(--accent)) 12%, transparent);
 }
 .stat-icon-wrap {
   width: 44px;
